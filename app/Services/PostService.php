@@ -65,6 +65,8 @@ class PostService
      */
     public function updatePost($data, $id)
     {
+        $post=$this->postRepository->findById($id);
+        if(!$post) return false;
         $dataUpdate= [
             'title' => $data['title'],
             'content' => $data['content']
@@ -79,6 +81,8 @@ class PostService
      */
     public function delete($id)
     {
+        $post=$this->postRepository->findById($id);
+        if(!$post) return false;
         $deletePost = $this->postRepository->delete($id);
         return $deletePost;
     }
