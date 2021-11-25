@@ -55,15 +55,8 @@ class PostService
      */
     public function listPost()
     {
-        DB::beginTransaction();
-        try {
             $listPost = $this->postRepository->all();
-            DB::commit();
             return $listPost;
-        } catch (\Exception $ex) {
-            DB::rollback();
-            return $ex->getMessage();
-        }
     }
 
     /**
