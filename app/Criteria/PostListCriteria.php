@@ -37,7 +37,8 @@ class PostListCriteria implements CriteriaInterface
      */
     public function __construct(
         Request $request
-    ) {
+    )
+    {
         $this->request = $request;
     }
 
@@ -59,9 +60,12 @@ class PostListCriteria implements CriteriaInterface
         $model = $model->select($this->select);
 
         if (isset($options['title'])) {
-            $model->where($this->mainTable . '.title', 'like', '%'. $options['title'] . '%');
+            $model->where($this->mainTable . '.title', 'like', '%' . $options['title'] . '%');
         }
 
+        if (isset($options['content'])) {
+            $model->where($this->mainTable . '.content', 'like', '%' . $options['content'] . '%');
+        }
 
         $sorting = $repository->setOrder($sortingTable, $sorting);
 
