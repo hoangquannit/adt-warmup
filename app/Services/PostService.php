@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Criteria\PostListCriteria;
+use App\Interfaces\PostRepositoryInterface;
 use App\Models\Posts;
 use App\Repositories\PostRepository;
 use mysql_xdevapi\Exception;
@@ -21,7 +23,7 @@ class PostService
      * @param PostRepository $postRepository
      */
     public function __construct(
-        PostRepository $postRepository
+        PostRepositoryInterface $postRepository
 
     )
     {
@@ -51,12 +53,16 @@ class PostService
     }
 
     /**
-     * @return PostRepository[]|\Illuminate\Database\Eloquent\Collection
+     * @return mixed
+     * @throws \App\Packages\Repository\Exceptions\RepositoryException
      */
     public function listPost()
     {
-            $listPost = $this->postRepository->all();
-            return $listPost;
+
+        $this->postRepository->pushCriteria(app(PostListCriteria::class));
+
+        $listPost = $this->postRepository->paginate(10);
+        return $listPost;
     }
 
     /**

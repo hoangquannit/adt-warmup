@@ -168,6 +168,9 @@ return [
          * Package Service Providers...
          */
 
+        App\Packages\Repository\Providers\RepositoryServiceProvider::class,
+        App\Providers\RepoBindingServiceProvider::class,
+
         /*
          * Application Service Providers...
          */

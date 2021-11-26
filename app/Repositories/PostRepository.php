@@ -2,7 +2,9 @@
 namespace App\Repositories;
 
 
-class PostRepository extends BaseRepository
+use App\Interfaces\PostRepositoryInterface;
+
+class PostRepository extends BaseRepository implements PostRepositoryInterface
 {
     /**
      * @var string

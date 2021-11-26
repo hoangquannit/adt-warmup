@@ -1,6 +1,5 @@
 <?php
-
-namespace App\Repositories;
+namespace App\Packages\Repository\Eloquent;
 
 use Closure;
 use Illuminate\Container\Container as Application;
@@ -18,8 +17,13 @@ use App\Packages\Repository\Events\RepositoryEntityDeleted;
 use App\Packages\Repository\Events\RepositoryEntityUpdated;
 use App\Packages\Repository\Exceptions\RepositoryException;
 
+/**
+ * Class BaseRepository
+ * @package App\Packages\Repository\Eloquent
+ */
 abstract class BaseRepository implements RepositoryInterface, RepositoryCriteriaInterface
 {
+
     /**
      * @var Application
      */
@@ -818,8 +822,8 @@ abstract class BaseRepository implements RepositoryInterface, RepositoryCriteria
      */
     public function setOrder($table, $sorting = [])
     {
-        $field = $sorting['sort'];
-        $direction = $sorting['order'];
+        $field = array_get($sorting, 'sort');
+        $direction = array_get($sorting, 'order');
 
         if (\Schema::hasColumn($table, $field) && ($direction == 'desc' || $direction == 'asc')) {
             return [
@@ -899,3 +903,4 @@ abstract class BaseRepository implements RepositoryInterface, RepositoryCriteria
         return $this->parserResult($collection);
     }
 }
+
