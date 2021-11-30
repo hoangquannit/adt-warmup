@@ -24,6 +24,7 @@ class Post extends Model
     protected $fillable = [
         'title',
         'content',
+        'img',
         'created_by',
         'updated_by',
         'enable',

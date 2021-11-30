@@ -47,7 +47,7 @@ class PostAPIController extends Controller
     {
         $data = $request->all();
 
-        $post= $this->postService->updatePost($data,['id'=> $id] );
+        $post= $this->postService->updatePost($data,$id );
         if (!$post) {
             return response()->json(['msg' => __('errors')  ],500);
         }

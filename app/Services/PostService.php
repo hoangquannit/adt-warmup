@@ -8,6 +8,7 @@ use App\Models\Posts;
 use App\Repositories\PostRepository;
 use mysql_xdevapi\Exception;
 use DB;
+use Storage;
 
 
 class PostService
@@ -42,6 +43,11 @@ class PostService
         try {
             $data ['title'];
             $data['content'];
+            $data['img'];
+            $img= $data['img'];
+            $filename =  $data['img']->getClientOriginalName();
+            Storage::disk('public')->put($filename, \File::get( $img));
+            $data['img']=$filename;
             $post = $this->postRepository->create($data);
             DB::commit();
             return $post;
@@ -82,19 +88,25 @@ class PostService
      */
     public function updatePost($data, $id)
     {
+
         DB::beginTransaction();
         try {
-            $post = $this->postRepository->findById($id);
+            $post = $this->postRepository->find($id);
             if (!$post) return false;
             $dataUpdate = [
                 'title' => $data['title'],
-                'content' => $data['content']
+                'content' => $data['content'],
+                'img' => $data['img']
             ];
-            $post = $this->postRepository->update(['id' => $id], $dataUpdate);
+            $filename =  $data['img']->getClientOriginalName();
+            Storage::disk('public')->put($filename, \File::get( $data['img']));
+            $dataUpdate['img']=$filename;
+            $post = $this->postRepository->update($dataUpdate, $id);
             DB::commit();
             return $post;
         } catch (\Exception $ex) {
             DB::rollback();
+            dd($ex->getMessage());
             return $ex->getMessage();
         }
 
