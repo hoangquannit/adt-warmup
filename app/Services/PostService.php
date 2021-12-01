@@ -77,7 +77,7 @@ class PostService
      */
     public function detail($id)
     {
-        $post = $this->postRepository->findById($id);
+        $post = $this->postRepository->find($id);
         return $post;
     }
 
@@ -120,7 +120,7 @@ class PostService
     {
         DB::beginTransaction();
         try {
-            $post = $this->postRepository->findById($id);
+            $post = $this->postRepository->find($id);
             if (!$post) return false;
             $deletePost = $this->postRepository->delete($id);
             DB::commit();
