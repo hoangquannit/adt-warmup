@@ -15,12 +15,10 @@ class RedirectIfAuthenticated
      * @param  string|null  $guard
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+    protected function redirectTo($request)
     {
-        if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+        if (! $request->expectsJson()) {
+            return abort(401);
         }
-
-        return $next($request);
     }
 }

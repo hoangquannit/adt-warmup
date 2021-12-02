@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Criteria\PostListCriteria;
+use App\Http\Requests\CreateRequest;
 use App\Interfaces\PostRepositoryInterface;
 use App\Models\Posts;
 use App\Repositories\PostRepository;
@@ -36,7 +37,7 @@ class PostService
      * @param $data
      * @return PostRepository[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function createPost($data)
+    public function createPost( $data)
     {
 
         DB::beginTransaction();

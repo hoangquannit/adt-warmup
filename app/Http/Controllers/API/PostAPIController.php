@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Requests\CreateRequest;
 use App\Services\PostService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -33,7 +34,7 @@ class PostAPIController extends Controller
         return response()->json(['msg' => __('ok'), 'data' => $listPost], 200);
     }
 
-    public function createPost(Request $request)
+    public function createPost(CreateRequest $request)
     {
         $data = $request->all();
         $post = $this->postService->createPost($data);
