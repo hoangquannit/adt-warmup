@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTablePostsTable extends Migration
+class CreateTableCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateTablePostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title', 255);
-            $table->longText('content');
+        Schema::create('categories', function (Blueprint $table) {
+            $table->increments('cat_id');
+            $table->string('name', 255);
+
             $table->integer('created_by')->nullable()->comment('The latest user ID that created the record');
             $table->integer('updated_by')->nullable()->comment('The latest user ID that updated the record');
             $table->smallInteger('enable')->default(1)->comment('Flag indicating invalid (deletion) record');
@@ -31,6 +31,6 @@ class CreateTablePostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('categories');
     }
 }

@@ -23,7 +23,7 @@ class RepoBindingServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $models = ['Post'];
+        $models = ['Post','Category'];
 
         foreach ($models as $model) {
             $this->app->bind("App\\Interfaces\\{$model}RepositoryInterface", "App\\Repositories\\{$model}Repository");
