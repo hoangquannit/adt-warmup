@@ -22,6 +22,7 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
+        'cat_id',
         'title',
         'content',
         'img',

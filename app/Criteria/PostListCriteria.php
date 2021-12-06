@@ -15,8 +15,10 @@ class PostListCriteria implements CriteriaInterface
      */
     protected $select = [
         'posts.id',
+        'posts.cat_id',
         'posts.title',
         'posts.content',
+        'posts.img',
         'posts.created_at',
         'posts.updated_at'
     ];
@@ -59,12 +61,20 @@ class PostListCriteria implements CriteriaInterface
         $sortingTable = $this->mainTable;
         $model = $model->select($this->select);
 
+        if (isset($options['cat_id'])) {
+            $model->where($this->mainTable . '.cat_id', 'like', '%' . $options['cat_id'] . '%');
+        }
+
         if (isset($options['title'])) {
             $model->where($this->mainTable . '.title', 'like', '%' . $options['title'] . '%');
         }
 
         if (isset($options['content'])) {
             $model->where($this->mainTable . '.content', 'like', '%' . $options['content'] . '%');
+        }
+
+        if (isset($options['img'])) {
+            $model->where($this->mainTable . '.img', 'like', '%' . $options['img'] . '%');
         }
 
         $sorting = $repository->setOrder($sortingTable, $sorting);

@@ -42,9 +42,6 @@ class PostService
 
         DB::beginTransaction();
         try {
-            $data ['title'];
-            $data['content'];
-            $data['img'];
             $img= $data['img'];
             $filename =  $data['img']->getClientOriginalName();
             Storage::disk('public')->put($filename, \File::get( $img));
@@ -89,15 +86,15 @@ class PostService
      */
     public function updatePost($data, $id)
     {
-
         DB::beginTransaction();
         try {
             $post = $this->postRepository->find($id);
             if (!$post) return false;
             $dataUpdate = [
+                'cat_id'=> $data['cat_id'],
                 'title' => $data['title'],
                 'content' => $data['content'],
-                'img' => $data['img']
+                'img' => $data['img'],
             ];
             $filename =  $data['img']->getClientOriginalName();
             Storage::disk('public')->put($filename, \File::get( $data['img']));

@@ -81,7 +81,7 @@ class CategoryService
      * @param $cat_id
      * @return int
      */
-    public function updatePost($data, $cat_id)
+    public function updateCategory($data, $cat_id)
     {
 
         DB::beginTransaction();
@@ -89,7 +89,7 @@ class CategoryService
             $category = $this->categoryRepository->find($cat_id);
             if (!$category) return false;
             $dataUpdate = [
-                'title' => $data['name'],
+                'name' => $data['name'],
             ];
             $category = $this->categoryRepository->update($dataUpdate, $cat_id);
             DB::commit();
