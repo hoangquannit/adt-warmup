@@ -16,6 +16,9 @@ class CategoryListCriteria implements CriteriaInterface
     protected $select = [
         'categories.cat_id',
         'categories.name',
+        'posts.title',
+        'posts.content',
+        'posts.img',
         'categories.created_at',
         'categories.updated_at'
     ];
@@ -57,6 +60,9 @@ class CategoryListCriteria implements CriteriaInterface
 
         $sortingTable = $this->mainTable;
         $model = $model->select($this->select);
+        $model->leftJoin('posts', function ($leftJoin) {
+            $leftJoin->on('categories.cat_id', '=', 'posts.cat_id');
+        });
 
         if (isset($options['name'])) {
             $model->where($this->mainTable . '.name', 'like', '%' . $options['name'] . '%');
@@ -68,4 +74,5 @@ class CategoryListCriteria implements CriteriaInterface
 
         return $model;
     }
+
 }

@@ -74,4 +74,5 @@ class CategoryAPIController extends Controller
         }
         return response()->json(['msg' => __('ok'), 'data' => $category], 200);
     }
+
 }
