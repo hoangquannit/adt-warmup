@@ -76,6 +76,7 @@ class PostService
     public function detail($id)
     {
         $post = $this->postRepository->find($id);
+        $category = $post->category;
         return $post;
     }
 

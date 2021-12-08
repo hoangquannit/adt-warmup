@@ -33,4 +33,8 @@ class Post extends Model
         'updated_at',
     ];
 
+    public function category()
+    {
+        return $this->hasOne(Category::class, "cat_id",'cat_id');
+    }
 }

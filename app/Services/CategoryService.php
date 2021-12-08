@@ -73,6 +73,7 @@ class CategoryService
     public function detail($cat_id)
     {
         $category = $this->categoryRepository->find($cat_id);
+       $posts = $category->posts;
         return $category;
     }
 

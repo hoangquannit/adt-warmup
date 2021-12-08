@@ -30,4 +30,9 @@ class Category extends Model
         'updated_at',
     ];
 
+    public function posts()
+    {
+        return $this->hasMany(Post::class, "cat_id",'cat_id');
+    }
+
 }
